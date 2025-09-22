@@ -1,0 +1,5 @@
+adapter: postgresql
+host: <%= ENV.fetch("DB_HOST", "localhost") %>
+username: <%= ENV.fetch("DB_USERNAME", "postgres") %>
+database: <%= ENV.fetch("DB_DATABASE", "kaigi_on_rails_2025_hierarchy_structure") %>
+password: <%= ENV.fetch("DB_PASSWORD", "password") %>

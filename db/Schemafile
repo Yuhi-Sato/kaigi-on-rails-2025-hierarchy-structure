@@ -1,0 +1,20 @@
+# frozen_string_literal: true
+
+create_table 'folders', force: :cascade do |t|
+  t.string   'name', null: false
+  t.integer  'parent_id'
+end
+
+add_index :folders, [:parent_id], name: 'folders_parent_id_idx'
+add_foreign_key :folders, :folders, column: :parent_id, name: 'folders_parent_id_fk'
+
+create_table 'folder_paths', force: :cascade do |t|
+  t.integer 'ancestor_id', null: false
+  t.integer 'descendant_id', null: false
+  t.integer 'depth', null: false
+end
+
+add_index :folder_paths, %i[ancestor_id descendant_id], unique: true, name: 'folder_paths_anc_desc_idx'
+
+add_foreign_key :folder_paths, :folders, column: :ancestor_id, name: 'folder_paths_ancestor_id_fk'
+add_foreign_key :folder_paths, :folders, column: :descendant_id, name: 'folder_paths_descendant_id_fk'

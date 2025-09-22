@@ -1,0 +1,27 @@
+services:
+  db:
+    image: postgres:17.5
+    volumes: 
+      - postgres-data:/var/lib/postgresql/data
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: password
+      POSTGRES_DB: kaigi_on_rails_2025_hierarchy_structure
+    ports:
+      - 5432:5432
+  app:
+    build: .
+    ports:
+      - 3000:3000
+    environment:
+      DB_HOST: db
+      DB_USERNAME: postgres
+      DB_PASSWORD: password
+      DB_DATABASE: kaigi_on_rails_2025_hierarchy_structure
+    depends_on:
+      - db
+    volumes:
+      - .:/usr/src/app
+
+volumes:
+  postgres-data:
